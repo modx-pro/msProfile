@@ -1,12 +1,12 @@
 <?php
+
 /**
  * The base class for msProfile.
  */
-
 class msProfile {
 	/** @var modX $modx */
 	public $modx;
-	/** @var miniShop2 $ms2  */
+	/** @var miniShop2 $ms2 */
 	public $ms2;
 
 
@@ -22,20 +22,21 @@ class msProfile {
 		$connectorUrl = $assetsUrl . 'connector.php';
 
 		$this->config = array_merge(array(
-			'assetsUrl' => $assetsUrl,
-			'cssUrl' => $assetsUrl . 'css/',
-			'jsUrl' => $assetsUrl . 'js/',
-			'imagesUrl' => $assetsUrl . 'images/',
-			'connectorUrl' => $connectorUrl,
+				'assetsUrl' => $assetsUrl,
+				'cssUrl' => $assetsUrl . 'css/',
+				'jsUrl' => $assetsUrl . 'js/',
+				'imagesUrl' => $assetsUrl . 'images/',
+				'connectorUrl' => $connectorUrl,
 
-			'corePath' => $corePath,
-			'modelPath' => $corePath . 'model/',
-			'chunksPath' => $corePath . 'elements/chunks/',
-			'templatesPath' => $corePath . 'elements/templates/',
-			'chunkSuffix' => '.chunk.tpl',
-			'snippetsPath' => $corePath . 'elements/snippets/',
-			'processorsPath' => $corePath . 'processors/'
-		), $config);
+				'corePath' => $corePath,
+				'modelPath' => $corePath . 'model/',
+				'chunksPath' => $corePath . 'elements/chunks/',
+				'templatesPath' => $corePath . 'elements/templates/',
+				'chunkSuffix' => '.chunk.tpl',
+				'snippetsPath' => $corePath . 'elements/snippets/',
+				'processorsPath' => $corePath . 'processors/'
+			), $config
+		);
 
 		$this->modx->addPackage('msprofile', $this->config['modelPath']);
 		$this->modx->lexicon->load('msprofile:default');
@@ -56,9 +57,10 @@ class msProfile {
 		}
 		// Call system event
 		$response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
-			'data' => $data,
-			'order' => $this->ms2->order
-		));
+				'data' => $data,
+				'order' => $this->ms2->order
+			)
+		);
 		if (!$response['success']) {
 			return $this->ms2->error($response['message']);
 		}
@@ -84,43 +86,47 @@ class msProfile {
 		// Create new order
 		/** @var msOrder $order */
 		$order = $this->modx->newObject('msOrder', array(
-			'user_id' => $this->modx->user->id,
-			'createdon' => date('Y-m-d H:i:s'),
-			'num' => $this->ms2->order->getnum(),
-			'delivery' => 0,
-			'payment' => $data['payment'],
-			'cart_cost' => $data['sum'],
-			'weight' => 0,
-			'delivery_cost' => 0,
-			'cost' => $data['sum'],
-			'status' => 0,
-			'context' => $this->ms2->config['ctx'],
-			'properties' => array('account_charge' => true)
-		));
+				'user_id' => $this->modx->user->id,
+				'createdon' => date('Y-m-d H:i:s'),
+				'num' => $this->ms2->order->getnum(),
+				'delivery' => 0,
+				'payment' => $data['payment'],
+				'cart_cost' => $data['sum'],
+				'weight' => 0,
+				'delivery_cost' => 0,
+				'cost' => $data['sum'],
+				'status' => 0,
+				'context' => $this->ms2->config['ctx'],
+				'properties' => array('account_charge' => true)
+			)
+		);
 
 		$products = array(
 			$this->modx->newObject('msOrderProduct', array(
-				'product_id' => 0,
-				'name' => $this->modx->lexicon('ms2_profile_charge'),
-				'price' => $data['sum'],
-				'cost' => $data['sum'],
+					'product_id' => 0,
+					'name' => $this->modx->lexicon('ms2_profile_charge'),
+					'price' => $data['sum'],
+					'cost' => $data['sum'],
+				)
 			)
-		));
+		);
 		$order->addMany($products);
 
 		$response = $this->ms2->invokeEvent('msOnBeforeCreateOrder', array(
-			'msOrder' => $order,
-			'order' => $this->ms2->order
-		));
+				'msOrder' => $order,
+				'order' => $this->ms2->order
+			)
+		);
 		if (!$response['success']) {
 			return $this->ms2->error($response['message']);
 		}
 
 		if ($order->save()) {
 			$response = $this->ms2->invokeEvent('msOnCreateOrder', array(
-				'msOrder' => $order,
-				'order' => $this->ms2->order
-			));
+					'msOrder' => $order,
+					'order' => $this->ms2->order
+				)
+			);
 			if (!$response['success']) {
 				return $this->ms2->error($response['message']);
 			}
@@ -135,7 +141,7 @@ class msProfile {
 			if ($response !== true) {
 				return $this->ms2->error($response, array('msorder' => $order->get('id')));
 			}
-			/* @var msPayment $payment*/
+			/* @var msPayment $payment */
 			elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment')))) {
 				$response = $payment->send($order);
 				if (!empty($response['data']['redirect'])) {

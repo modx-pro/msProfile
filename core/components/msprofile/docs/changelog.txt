@@ -1,6 +1,7 @@
 
 1.0.0-pl
 ==============
+- Fixed plugins events.
 - Fixed work with inactive methods.
 
 1.0.0-beta
