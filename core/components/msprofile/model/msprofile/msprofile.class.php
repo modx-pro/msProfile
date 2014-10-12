@@ -57,13 +57,14 @@ class msProfile {
 		// Call system event
 		$response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
 			'data' => $data,
-			'order' => $this
+			'order' => $this->ms2->order
 		));
 		if (!$response['success']) {
 			return $this->ms2->error($response['message']);
 		}
 		if (!empty($response['data']['data'])) {
 			$data = array_merge($data, $response['data']['data']);
+			$this->ms2->order->set($data);
 		}
 		// Check required fields
 		$errors = array();
@@ -109,7 +110,7 @@ class msProfile {
 
 		$response = $this->ms2->invokeEvent('msOnBeforeCreateOrder', array(
 			'msOrder' => $order,
-			'order' => $this
+			'order' => $this->ms2->order
 		));
 		if (!$response['success']) {
 			return $this->ms2->error($response['message']);
@@ -118,7 +119,7 @@ class msProfile {
 		if ($order->save()) {
 			$response = $this->ms2->invokeEvent('msOnCreateOrder', array(
 				'msOrder' => $order,
-				'order' => $this
+				'order' => $this->ms2->order
 			));
 			if (!$response['success']) {
 				return $this->ms2->error($response['message']);
