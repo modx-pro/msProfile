@@ -135,7 +135,7 @@ class msProfile {
 				return $this->ms2->error($response, array('msorder' => $order->get('id')));
 			}
 			/* @var msPayment $payment*/
-			elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
+			elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment')))) {
 				$response = $payment->send($order);
 				if (!empty($response['data']['redirect'])) {
 					$this->modx->sendRedirect($response['data']['redirect']);
