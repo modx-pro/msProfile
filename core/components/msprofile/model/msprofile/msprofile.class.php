@@ -41,8 +41,12 @@ class msProfile {
 		$this->modx->addPackage('msprofile', $this->config['modelPath']);
 		$this->modx->lexicon->load('msprofile:default');
 
-		$this->ms2 = $modx->getService('miniShop2');
-		$this->ms2->initialize($this->modx->context->key);
+		if ($this->ms2 = $modx->getService('miniShop2')) {
+			$this->ms2->initialize($this->modx->context->key);
+		}
+		else {
+			$this->modx->log(modX::LOG_LEVEL_ERROR, 'msProfile requires installed miniShop2.');
+		}
 	}
 
 

@@ -1,4 +1,8 @@
 
+1.0.1-pl
+==============
+- Added checking miniShop2 upon initialization.
+
 1.0.0-pl
 ==============
 - Fixed plugins events.
