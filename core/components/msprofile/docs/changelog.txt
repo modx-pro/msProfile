@@ -1,4 +1,8 @@
 
+1.0.2-pl
+==============
+- Added dependence from miniShop2 to the installer.
+
 1.0.1-pl
 ==============
 - Added checking miniShop2 upon initialization.
