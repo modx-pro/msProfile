@@ -1,5 +1,5 @@
 
-1.0.2-pl
+1.0.2-pl1
 ==============
 - Added dependence from miniShop2 to the installer.
 
