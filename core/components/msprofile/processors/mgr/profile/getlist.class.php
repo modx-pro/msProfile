@@ -29,12 +29,17 @@ class msCustomerProfileGetListProcessor extends modObjectGetListProcessor {
 		$c->select('COUNT(Referrals.id) as referrals');
 
 		if ($query = $this->getProperty('query')) {
-			$c->where(array(
-				'User.username:LIKE' => "%{$query}%",
-				'OR:UserProfile.fullname:LIKE' => "%{$query}%",
-				//'OR:Referrer.username:LIKE' => "%{$query}%",
-				//'OR:ReferrerProfile.fullname:LIKE' => "%{$query}%",
-			));
+			if (is_numeric($query)) {
+				$c->where(array(
+					$this->classKey . '.id' => $query,
+				));
+			}
+			else {
+				$c->where(array(
+					'User.username:LIKE' => "%{$query}%",
+					'OR:UserProfile.fullname:LIKE' => "%{$query}%",
+				));
+			}
 		}
 
 		return $c;

@@ -1,4 +1,8 @@
 
+1.0.3-pl
+==============
+- Ability to search customers by id in manager.
+
 1.0.2-pl1
 ==============
 - Added dependence from miniShop2 to the installer.
