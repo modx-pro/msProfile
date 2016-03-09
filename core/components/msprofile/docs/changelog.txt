@@ -1,4 +1,8 @@
 
+1.0.4-pl
+==============
+- Improved load of pdoTools.
+
 1.0.3-pl
 ==============
 - Ability to search customers by id in manager.

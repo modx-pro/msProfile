@@ -123,10 +123,9 @@ if (!function_exists('downloadPackage')) {
 $success = false;
 switch (@$options[xPDOTransport::PACKAGE_ACTION]) {
 	case xPDOTransport::ACTION_INSTALL:
-	case xPDOTransport::ACTION_UPGRADE:
-		/* @var modX $modx */
+		/** @var modX $modx */
 		$modx = &$object->xpdo;
-		/* Checking and installing required packages */
+		// Checking and installing required packages
 		$packages = array(
 			'miniShop2' => '2.1.12-pl',
 		);
@@ -146,10 +145,10 @@ switch (@$options[xPDOTransport::PACKAGE_ACTION]) {
 				: modX::LOG_LEVEL_ERROR;
 			$modx->log($level, $response['message']);
 		}
-
 		$success = true;
 		break;
 
+	case xPDOTransport::ACTION_UPGRADE:
 	case xPDOTransport::ACTION_UNINSTALL:
 		$success = true;
 		break;
