@@ -2,26 +2,27 @@
 
 $settings = array();
 
-$tmp = array(
-	'some_setting' => array(
-		'xtype' => 'combo-boolean',
-		'value' => true,
-		'area' => 'msprofile_main',
-	),
+$tmp = array(/*
+    'some_setting' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'msprofile_main',
+    ),
+    */
 );
 
 foreach ($tmp as $k => $v) {
-	/* @var modSystemSetting $setting */
-	$setting = $modx->newObject('modSystemSetting');
-	$setting->fromArray(array_merge(
-		array(
-			'key' => 'msprofile_'.$k,
-			'namespace' => PKG_NAME_LOWER,
-		), $v
-	),'',true,true);
+    /** @var modSystemSetting $setting */
+    $setting = $modx->newObject('modSystemSetting');
+    $setting->fromArray(array_merge(
+        array(
+            'key' => 'msprofile_' . $k,
+            'namespace' => PKG_NAME_LOWER,
+        ), $v
+    ), '', true, true);
 
-	$settings[] = $setting;
+    $settings[] = $setting;
 }
-
 unset($tmp);
+
 return $settings;

@@ -1,3 +1,9 @@
+Changelog for msProfile.
+
+1.1.0-pl
+==============
+- Updated to work with miniShop2.4.
+- Requires at least miniShop2.4.0-beta2.
 
 1.0.4-pl
 ==============

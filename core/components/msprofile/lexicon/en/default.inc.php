@@ -3,10 +3,7 @@
 include_once 'setting.inc.php';
 
 $_lang['msprofile'] = 'Profiles buyers';
-$_lang['msprofile_intro_msg'] = 'Please note that a customer profile is created the first time the transactions of purchase or Deposit. If the user only has registered and has done nothing - his profile will not be here.';
-
-$_lang['msprofile_btn_update'] = 'Edit';
-$_lang['msprofile_btn_remove'] = 'Delete';
+$_lang['msprofile_intro_msg'] = 'Please note that a customer profile is created at the first payment for order. If the user just registered and has done nothing, he has no customer profile.';
 
 $_lang['ms2_profile_customer'] = 'Customer';
 $_lang['ms2_profile_fullname'] = 'Customer';
