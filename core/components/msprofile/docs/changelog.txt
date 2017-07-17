@@ -1,5 +1,9 @@
 Changelog for msProfile.
 
+1.1.1-pl
+==============
+- Ability to call msProfile::createPayment() via ajax.
+
 1.1.0-pl
 ==============
 - Updated to work with miniShop2.4.

@@ -58,10 +58,9 @@ class msProfile
         }
         // Call system event
         $response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
-                'data' => $data,
-                'order' => $this->ms2->order,
-            )
-        );
+            'data' => $data,
+            'order' => $this->ms2->order,
+        ));
         if (!$response['success']) {
             return $this->ms2->error($response['message']);
         }
@@ -149,7 +148,9 @@ class msProfile
             } /** @var msPayment $payment */
             elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment')))) {
                 $response = $payment->send($order);
-                if (!empty($response['data']['redirect'])) {
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+                    return $response;
+                } elseif (!empty($response['data']['redirect'])) {
                     $this->modx->sendRedirect($response['data']['redirect']);
                 } elseif (!empty($response['data']['msorder'])) {
                     $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id, array(
